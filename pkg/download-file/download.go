@@ -1,4 +1,4 @@
-package download_file
+package downloadFile
 
 import (
 	"github.com/hashicorp/go-retryablehttp"

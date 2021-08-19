@@ -1,4 +1,4 @@
-package download_file
+package downloadFile
 
 import (
 	"io"

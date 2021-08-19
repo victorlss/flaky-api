@@ -1,5 +1,6 @@
 package types
 
+// House is a JSON representation of house data
 type House struct {
 	Id        int    `json:"id"`
 	Address   string `json:"address"`
