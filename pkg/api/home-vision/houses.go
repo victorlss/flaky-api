@@ -1,22 +1,53 @@
 package home_vision
 
 import (
-	"github.com/victorlss/flaky-api/pkg/api/home-vision/types"
+	"encoding/json"
+	"fmt"
+	"github.com/hashicorp/go-retryablehttp"
+	"github.com/victorlss/flaky-api/pkg/shared/types"
 	"io/ioutil"
-	"net/http"
+	"log"
 )
 
-// Fetch houses data from Home Vision API.
-func Fetch(url string) types.Houses {
-	res, err := http.Get(url)
-	if err != nil {
-		// TODO: Implement log
+var (
+	baseUrl = "https://app-homevision-staging.herokuapp.com/api_project"
+)
+
+const (
+	retries      = 5
+	pagesToFetch = 10
+)
+
+// Fetch data from Home Vision API.
+func Fetch(houseChan chan types.House) {
+	pageNumber := 0
+	for pageNumber < pagesToFetch {
+		pageNumber++
+
+		httpClient := retryablehttp.NewClient()
+		httpClient.RetryMax = retries
+
+		url := fmt.Sprintf("%s/houses?page=%d", baseUrl, pageNumber)
+		resp, err := httpClient.Get(url)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		body, _ := ioutil.ReadAll(resp.Body)
+		houses := parse(body)
+
+		for _, house := range houses.Houses {
+			houseChan <- house
+		}
 	}
 
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		// TODO: Implement log
-	}
+	close(houseChan)
+}
 
-	return types.Houses{}.Parse(body)
+// Parse data from json to Houses type
+func parse(jsonData []byte) types.Houses {
+	var houses types.Houses
+	_ = json.Unmarshal(jsonData, &houses)
+
+	return houses
 }
