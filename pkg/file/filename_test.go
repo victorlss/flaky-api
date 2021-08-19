@@ -2,12 +2,12 @@ package file
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/victorlss/flaky-api/pkg/api/home-vision/types"
+	"github.com/victorlss/flaky-api/pkg/shared/types"
 	"testing"
 )
 
 func TestGenerateFilename(t *testing.T) {
-	t.Run("should generate file", func(t *testing.T) {
+	t.Run("should generate filename with format 'id-[NNN]-[address].[ext]'", func(t *testing.T) {
 		expected := "id-000-4_Pumpkin_Hill_St_Antioch_TN_37013.jpg"
 		houseMock := types.House{
 			Id:        0,
