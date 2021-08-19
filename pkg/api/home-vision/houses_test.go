@@ -1,4 +1,4 @@
-package homeVision
+package homevision
 
 import (
 	"github.com/stretchr/testify/assert"
