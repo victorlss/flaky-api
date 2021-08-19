@@ -1,6 +1,6 @@
 # Flaky API
 
-![git hub action](https://github.com/victorlss/flaky-api/actions/workflows/go.yml/badge.svg)
+![git hub action](https://github.com/victorlss/flaky-api/actions/workflows/test.yml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/victorlss/flaky-api)](https://goreportcard.com/report/github.com/victorlss/flaky-api)
 
 This application consumes a flaky API and download photos. 
