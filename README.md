@@ -1,5 +1,7 @@
 # Flaky API
 
+![git hub action](https://github.com/victorlss/flaky-api/actions/workflows/go.yml/badge.svg)
+
 This application consumes a flaky API and download photos. 
 
 The objective is handle these errors correctly so that all photos are downloaded.<br />
